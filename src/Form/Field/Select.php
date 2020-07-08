@@ -145,9 +145,14 @@ $(document).on('change', "{$this->getElementClassSelector()}", function () {
             })
         });
         if (target.data('value')) {
-            $(target).val(target.data('value'));
+            var value = target.data('value');
+            if(value.toString().indexOf(',')>0)
+                target.val(value.toString().split(',')).trigger('change'); 
+            else
+                target.val(value).trigger('change');
+        } else {
+            target.trigger('change');
         }
-        $(target).trigger('change');
     });
 });
 EOT;
